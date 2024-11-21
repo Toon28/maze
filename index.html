@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accelerometer Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Accelerometer Test</h1>
+    <p>Move your phone to see the accelerometer data.</p>
+    <div id="output">Waiting for sensor data...</div>
+
+    <script>
+        if (window.DeviceMotionEvent) {
+            document.getElementById("output").innerText = "DeviceMotionEvent is supported. Move your phone!";
+            window.addEventListener('devicemotion', (event) => {
+                const acceleration = event.acceleration;
+                const accelX = acceleration.x ? acceleration.x.toFixed(2) : 0;
+                const accelY = acceleration.y ? acceleration.y.toFixed(2) : 0;
+                const accelZ = acceleration.z ? acceleration.z.toFixed(2) : 0;
+
+                document.getElementById("output").innerHTML = `
+                    Acceleration:<br>
+                    X: ${accelX} m/s²<br>
+                    Y: ${accelY} m/s²<br>
+                    Z: ${accelZ} m/s²
+                `;
+            });
+        } else {
+            document.getElementById("output").innerText = "DeviceMotionEvent is not supported on this device.";
+        }
+    </script>
+</body>
+</html>
