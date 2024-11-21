@@ -26,10 +26,12 @@
             document.getElementById("output").innerText = "DeviceMotionEvent is supported. Move your phone!";
             window.addEventListener('devicemotion', (event) => {
                 const acceleration = event.acceleration;
-                const accelX = acceleration.x ? acceleration.x.toFixed(2) : 0;
-                const accelY = acceleration.y ? acceleration.y.toFixed(2) : 0;
-                const accelZ = acceleration.z ? acceleration.z.toFixed(2) : 0;
-
+                //const accelX = acceleration.x ? acceleration.x.toFixed(2) : 0;
+                //const accelY = acceleration.y ? acceleration.y.toFixed(2) : 0;
+                //const accelZ = acceleration.z ? acceleration.z.toFixed(2) : 0;
+                const accelX = acceleration.x.toFixed(2);
+                const accelY = acceleration.y.toFixed(2);
+                const accelZ = acceleration.z.toFixed(2);
                 document.getElementById("output").innerHTML = `
                     Acceleration:<br>
                     X: ${accelX} m/s²<br>
