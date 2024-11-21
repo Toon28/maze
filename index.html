@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accelerometer Test</title>
+    <title>Calculate Tilt Angle</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,31 +12,37 @@
         #output {
             margin-top: 20px;
             font-size: 1.2em;
-            color: #333;
         }
     </style>
 </head>
 <body>
-    <h1>Accelerometer Test</h1>
-    <p>Move your phone to see the accelerometer data.</p>
+    <h1>Calculate Tilt Angle</h1>
+    <p>Hold your phone and tilt it to see the calculated angles (X and Y).</p>
     <div id="output">Waiting for sensor data...</div>
 
     <script>
         if (window.DeviceMotionEvent) {
-            document.getElementById("output").innerText = "DeviceMotionEvent is supported. Move your phone!";
-            window.addEventListener('devicemotion', (event) => {
-                const acceleration = event.acceleration;
-                //const accelX = acceleration.x ? acceleration.x.toFixed(2) : 0;
-                //const accelY = acceleration.y ? acceleration.y.toFixed(2) : 0;
-                //const accelZ = acceleration.z ? acceleration.z.toFixed(2) : 0;
-                const accelX = acceleration.x.toFixed(2);
-                const accelY = acceleration.y.toFixed(2);
-                const accelZ = acceleration.z.toFixed(2);
+            document.getElementById("output").innerText = "DeviceMotionEvent supported. Move your phone!";
+
+            window.addEventListener("devicemotion", (event) => {
+                const accel = event.accelerationIncludingGravity; // ใช้ค่าที่รวมแรงโน้มถ่วง
+                const accelX = accel.x || 0;
+                const accelY = accel.y || 0;
+                const accelZ = accel.z || 0;
+
+                // คำนวณมุมการเอียง
+                const tiltX = Math.atan2(accelY, Math.sqrt(accelX ** 2 + accelZ ** 2)) * (180 / Math.PI);
+                const tiltY = Math.atan2(accelX, Math.sqrt(accelY ** 2 + accelZ ** 2)) * (180 / Math.PI);
+
+                // แสดงผล
                 document.getElementById("output").innerHTML = `
                     Acceleration:<br>
-                    X: ${accelX} m/s²<br>
-                    Y: ${accelY} m/s²<br>
-                    Z: ${accelZ} m/s²
+                    X: ${accelX.toFixed(2)}<br>
+                    Y: ${accelY.toFixed(2)}<br>
+                    Z: ${accelZ.toFixed(2)}<br><br>
+                    Tilt Angle:<br>
+                    Tilt X: ${tiltX.toFixed(2)}°<br>
+                    Tilt Y: ${tiltY.toFixed(2)}°
                 `;
             });
         } else {
