@@ -35,7 +35,7 @@
             color: "blue",
             dx: 0,
             dy: 0,
-            speed: 2.0
+            speed: 5.0
         };
 
         function updateBall() {
@@ -73,8 +73,8 @@
 					const tiltX = Math.atan2(accelY, Math.sqrt(accelX ** 2 + accelZ ** 2)) * (100 / Math.PI);
 					const tiltY = Math.atan2(accelX, Math.sqrt(accelY ** 2 + accelZ ** 2)) * (100 / Math.PI);
 
-                    ball.dx = (tiltY/10) * ball.speed;
-                    ball.dy = ((-tiltX)/10) * ball.speed;
+                    ball.dx = ((-tiltY)/10) * ball.speed;
+                    ball.dy = ((tiltX)/10) * ball.speed;
                 });
             } else {
                 alert("DeviceMotionEvent is not supported on this device.");
