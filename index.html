@@ -25,11 +25,9 @@
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
 
-        // ขนาดของ canvas
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        // กำหนดลูกบอล
         const ball = {
             x: canvas.width / 2,
             y: canvas.height / 2,
@@ -37,22 +35,19 @@
             color: "blue",
             dx: 0,
             dy: 0,
-            speed: 1.5 // ปรับความไว
+            speed: 1.5
         };
 
-        // อัปเดตตำแหน่งลูกบอล
         function updateBall() {
             ball.x += ball.dx;
             ball.y += ball.dy;
 
-            // ป้องกันลูกบอลหลุดขอบ
             if (ball.x - ball.radius < 0) ball.x = ball.radius;
             if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - ball.radius;
             if (ball.y - ball.radius < 0) ball.y = ball.radius;
             if (ball.y + ball.radius > canvas.height) ball.y = canvas.height - ball.radius;
         }
 
-        // วาดลูกบอล
         function drawBall() {
             ctx.clearRect(0, 0, canvas.width, canvas.height); // ล้างหน้าจอ
             ctx.beginPath();
@@ -62,36 +57,34 @@
             ctx.closePath();
         }
 
-        // อัปเดตหน้าจอ
         function gameLoop() {
             updateBall();
             drawBall();
             requestAnimationFrame(gameLoop);
         }
 
-        // ฟังชั่นเริ่มต้น
         function init() {
             if (window.DeviceMotionEvent) {
                 window.addEventListener("devicemotion", (event) => {
                     const accel = event.accelerationIncludingGravity;
                     const accelX = accel.x || 0;
                     const accelY = accel.y || 0;
+					const accelZ = accel.z || 0;
+					const tiltX = Math.atan2(accelY, Math.sqrt(accelX ** 2 + accelZ ** 2)) * (100 / Math.PI);
+					const tiltY = Math.atan2(accelX, Math.sqrt(accelY ** 2 + accelZ ** 2)) * (100 / Math.PI);
 
-                    // ปรับค่า dx, dy ตามการเอียง
-                    ball.dx = accelX * ball.speed;
-                    ball.dy = -accelY * ball.speed; // Y ต้องกลับทิศเพราะแกนอุปกรณ์
+                    ball.dx = tiltX * ball.speed;
+                    ball.dy = -tiltY * ball.speed;
                 });
             } else {
                 alert("DeviceMotionEvent is not supported on this device.");
             }
 
-            gameLoop(); // เริ่มเกม
+            gameLoop();
         }
 
-        // เรียกฟังชั่นเริ่มต้น
         init();
 
-        // ปรับขนาด canvas เมื่อเปลี่ยนขนาดหน้าจอ
         window.addEventListener("resize", () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
