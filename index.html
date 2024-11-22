@@ -73,8 +73,8 @@
 					const tiltX = Math.atan2(accelY, Math.sqrt(accelX ** 2 + accelZ ** 2)) * (100 / Math.PI);
 					const tiltY = Math.atan2(accelX, Math.sqrt(accelY ** 2 + accelZ ** 2)) * (100 / Math.PI);
 
-                    ball.dx = tiltX * ball.speed;
-                    ball.dy = -tiltY * ball.speed;
+                    ball.dx = (tiltY/50) * ball.speed;
+                    ball.dy = ((-tiltX)/50) * ball.speed;
                 });
             } else {
                 alert("DeviceMotionEvent is not supported on this device.");
