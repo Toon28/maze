@@ -37,10 +37,11 @@
 			VIS[Y][X]=1;
 			let di = [[Y,X-1],[Y+1,X],[Y,X+1],[Y-1,X]];
 			shuffleArray(di);
-			for i in di{
+			for(let i in di){
 				const X1 = di[i][1];
-				const Y1 = di[i][0]
-				if(VIS[Y1][X] == 1)continue;
+				const Y1 = di[i][0];
+				if((X1<0)||(Y1<0))continue
+				if(VIS[Y1][X1] == 1)continue
 				if(X1==X){
 					if(Y1<Y){//UP
 						MAZ[Y][X]-=8
