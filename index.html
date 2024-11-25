@@ -73,7 +73,8 @@
         canvas.height = (widPix*H)+2;
 		ctx.strokeStyle = "blue";
 		ctx.lineWidth = 1;
-		
+	function drawMaz()
+	{
 		for(let j in MAZ)
 		{
 			for(let i in MAZ[j])
@@ -100,7 +101,7 @@
 				ctx.stroke();
 			}
 		}
-		
+	}
         const ball = {
             x: widPix / 2,
             y: widPix / 2,
@@ -120,12 +121,12 @@
             if (ball.y + ball.radius > 32) ball.y = 32 - ball.radius-1;
         }
         function drawBall() {
-            ctx.clearRect(2, 2, 30, 30);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+	    drawMaz()
             ctx.beginPath();
             ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
             ctx.fillStyle = ball.color;
-	    ctx.stroke();
-            //ctx.fill();
+	    ctx.fill();
             ctx.closePath();
         }
         function gameLoop() {
