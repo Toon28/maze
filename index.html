@@ -24,7 +24,17 @@
     <script>
 		const W=10;
 		const H=16;
-	    	const widPix=32;
+	    const widPix=32;
+		
+		const ball = {
+            x: widPix / 2,
+            y: widPix / 2,
+            radius: 5,
+            color: "blue",
+            dx: 0,
+            dy: 0,
+            speed: 5.0
+        };
 		
 		let VIS = [...Array.from({ length: H }, () => Array(W).fill(0).concat(1)),Array(W + 1).fill(1)];
 		let MAZ = Array.from({ length: H }, () => Array(W).fill(15));
@@ -72,7 +82,7 @@
         canvas.width = (widPix*W)+2;
         canvas.height = (widPix*H)+2;
 		ctx.strokeStyle = "blue";
-	    	ctx.fillStyle = "blue";
+	    ctx.fillStyle = ball.color;
 		ctx.lineWidth = 1;
 	function drawMaz()
 	{
@@ -103,19 +113,20 @@
 			}
 		}
 	}
-        const ball = {
-            x: widPix / 2,
-            y: widPix / 2,
-            radius: 5,
-            color: "blue",
-            dx: 0,
-            dy: 0,
-            speed: 5.0
-        };
+		function findbox(x,y)
+		{
+			return MAZ[(y)%widPix][(x)%widPix]
+		}
         function updateBall() {
             ball.x += ball.dx;
             ball.y += ball.dy;
-
+			const Maz_ = findbox(x,y);
+			const XW = parseInt(x/widPix)*widPix
+			const YW = parseInt(y/widPix)*widPix
+			if(X & 0x01){if(ball.x - ball.radius < (XW+2)){ball.x=ball.radius+3+XW;}}
+			if(X & 0x02){if(ball.x + ball.radius > XW+widPix){ball.x=XW+widPix-(ball.radius+2);}}
+			if(X & 0x04){if(ball.y - ball.radius < (YW+2)){ball.y=ball.radius+3+YW;}}
+			if(X & 0x08){if(ball.y + ball.radius > YW+widPix){ball.x=YW+widPix-(ball.radius+2);}}
             if (ball.x - ball.radius < 2) ball.x = ball.radius+3;
             if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - (ball.radius+2);
             if (ball.y - ball.radius < 2) ball.y = ball.radius+3;
@@ -123,7 +134,7 @@
         }
         function drawBall() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-	    drawMaz();
+			drawMaz();
             ctx.beginPath();
             ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
             ctx.fill();
@@ -154,8 +165,7 @@
             gameLoop();
         }
         init();
-/*
-        window.addEventListener("resize", () => {
+/*		window.addEventListener("resize", () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });*/
