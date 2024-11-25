@@ -88,6 +88,7 @@
         canvas.height = (widPix*H)+2+80;
 		ctx.strokeStyle = "blue";
 	    ctx.fillStyle = ball.color;
+		ctx.font = "14px Arial";
 		ctx.lineWidth = 1;
 	function drawMaz()
 	{
@@ -125,6 +126,8 @@
         function updateBall() {
             ball.x += ball.dx;
             ball.y += ball.dy;
+			ctx.clearRect(20, 550, 100, 100);
+			ctx.fillText(`${ball.dx}  ${ball.dx}`,30,600);
 			const Maz_ = findbox(ball.dx,ball.dy);
 			const XW = parseInt(ball.dx/widPix)*widPix
 			const YW = parseInt(ball.dy/widPix)*widPix
@@ -162,9 +165,7 @@
 
                     ball.dx = ((-tiltY)/10) * ball.speed;
                     ball.dy = ((tiltX)/10) * ball.speed;
-					ctx.font = "14px Arial";
-					ctx.clearRect(30, 520, 100, 30);
-					ctx.fillText(`${ball.dx}  ${ball.dx}`,30,520);
+					
                 });
             } else {
                 alert("DeviceMotionEvent is not supported on this device.");
