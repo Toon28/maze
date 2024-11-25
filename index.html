@@ -162,8 +162,9 @@
 
                     ball.dx = ((-tiltY)/10) * ball.speed;
                     ball.dy = ((tiltX)/10) * ball.speed;
-					ctx.font = "20px Arial";
-					ctx.fillText(`${ball.dx}  ${ball.dx}`,10,192);
+					ctx.font = "14px Arial";
+					ctx.clearRect(30, 520, 100, 30);
+					ctx.fillText(`${ball.dx}  ${ball.dx}`,30,520);
                 });
             } else {
                 alert("DeviceMotionEvent is not supported on this device.");
