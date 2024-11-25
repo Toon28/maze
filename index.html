@@ -123,10 +123,10 @@
 			const Maz_ = findbox(ball.dx,ball.dy);
 			const XW = parseInt(x/widPix)*widPix
 			const YW = parseInt(y/widPix)*widPix
-			if(X & 0x01){if(ball.x - ball.radius < (XW+2)){ball.x=ball.radius+3+XW;}}
-			if(X & 0x02){if(ball.x + ball.radius > XW+widPix){ball.x=XW+widPix-(ball.radius+2);}}
-			if(X & 0x04){if(ball.y - ball.radius < (YW+2)){ball.y=ball.radius+3+YW;}}
-			if(X & 0x08){if(ball.y + ball.radius > YW+widPix){ball.x=YW+widPix-(ball.radius+2);}}
+			if(Maz_ & 0x01){if(ball.x - ball.radius < (XW+2)){ball.x=ball.radius+3+XW;}}
+			if(Maz_ & 0x02){if(ball.x + ball.radius > XW+widPix){ball.x=XW+widPix-(ball.radius+2);}}
+			if(Maz_ & 0x04){if(ball.y - ball.radius < (YW+2)){ball.y=ball.radius+3+YW;}}
+			if(Maz_ & 0x08){if(ball.y + ball.radius > YW+widPix){ball.x=YW+widPix-(ball.radius+2);}}
             if (ball.x - ball.radius < 2) ball.x = ball.radius+3;
             if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - (ball.radius+2);
             if (ball.y - ball.radius < 2) ball.y = ball.radius+3;
