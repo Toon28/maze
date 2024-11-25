@@ -67,18 +67,18 @@
 			}
 		}
 		walk(Math.floor(Math.random()*W),Math.floor(Math.random()*H))
-        	const canvas = document.getElementById("Canvas");
-        	const ctx = canvas.getContext("2d");
-        	canvas.width = widPix*W;
-        	canvas.height = widPix*H;
+        const canvas = document.getElementById("Canvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = (widPix*W)+2;
+        canvas.height = (widPix*H)+2;
 		ctx.strokeStyle = "blue";
 		ctx.lineWidth = 1;
 		
 		for(let j in MAZ){
 			for(let i in MAZ[j]){
-				const ox = widPix*i;
-				const oy = widPix*j;
-				const X=MAZ[j][i]
+				const ox = (widPix*i)+1;
+				const oy = (widPix*j)+1;
+				const X = MAZ[j][i]
 				if(X & 0x01){
 					ctx.moveTo(ox, oy);
 					ctx.lineTo(ox, oy+widPix);
