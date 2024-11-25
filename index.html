@@ -126,8 +126,8 @@
         function updateBall() {
             ball.x += ball.dx;
             ball.y += ball.dy;
-			ctx.clearRect(20, 550, 100, 100);
-			ctx.fillText(`${ball.dx}  ${ball.dx}`,30,600);
+	    ctx.clearRect(20, 550, 100, 100);
+	    ctx.fillText(`${ball.dx}  ${ball.dx}`,30,550);
 			const Maz_ = findbox(ball.dx,ball.dy);
 			const XW = parseInt(ball.dx/widPix)*widPix
 			const YW = parseInt(ball.dy/widPix)*widPix
