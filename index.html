@@ -104,7 +104,7 @@
         const ball = {
             x: widPix / 2,
             y: widPix / 2,
-            radius: 5,
+            radius: 4,
             color: "blue",
             dx: 0,
             dy: 0,
@@ -125,7 +125,7 @@
             ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
             ctx.fillStyle = ball.color;
 	    ctx.stroke();
-            ctx.fill();
+            //ctx.fill();
             ctx.closePath();
         }
         function gameLoop() {
