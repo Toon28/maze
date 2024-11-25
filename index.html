@@ -67,10 +67,10 @@
 			}
 		}
 		walk(Math.floor(Math.random()*W),Math.floor(Math.random()*H))
-        const canvas = document.getElementById("Canvas");
-        const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        	const canvas = document.getElementById("Canvas");
+        	const ctx = canvas.getContext("2d");
+        	canvas.width = widPix*W;
+        	canvas.height = widPix*H;
 		ctx.strokeStyle = "blue";
 		ctx.lineWidth = 1;
 		
