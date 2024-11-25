@@ -120,7 +120,7 @@
             if (ball.y + ball.radius > 32) ball.y = 32 - ball.radius;
         }
         function drawBall() {
-            ctx.clearRect(1, 1, 31, 31);
+            ctx.clearRect(2, 2, 30, 30);
             ctx.beginPath();
             ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
             ctx.fillStyle = ball.color;
