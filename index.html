@@ -85,7 +85,7 @@
         const canvas = document.getElementById("Canvas");
         const ctx = canvas.getContext("2d");
         canvas.width = (widPix*W)+2;
-        canvas.height = (widPix*H)+2;
+        canvas.height = (widPix*H)+2+80;
 		ctx.strokeStyle = "blue";
 	    ctx.fillStyle = ball.color;
 		ctx.lineWidth = 1;
@@ -162,6 +162,8 @@
 
                     ball.dx = ((-tiltY)/10) * ball.speed;
                     ball.dy = ((tiltX)/10) * ball.speed;
+					ctx.font = "20px Arial";
+					ctx.fillText(`${ball.dx}  ${ball.dx}`,10,192);
                 });
             } else {
                 alert("DeviceMotionEvent is not supported on this device.");
