@@ -81,19 +81,19 @@
 				const X=MAZ[j][i]
 				if(X & 0x01){
 					ctx.moveTo(ox, oy);
-					ctx.lineTo(ox, oy+8);
+					ctx.lineTo(ox, oy+widPix);
 				}
 				if(X & 0x02){
-					ctx.moveTo(ox, oy+8);
-					ctx.lineTo(ox+8, oy+8);
+					ctx.moveTo(ox, oy+widPix);
+					ctx.lineTo(ox+widPix, oy+widPix);
 				}
 				if(X & 0x04){
-					ctx.moveTo(ox+8, oy);
-					ctx.lineTo(ox+8, oy+8);
+					ctx.moveTo(ox+widPix, oy);
+					ctx.lineTo(ox+widPix, oy+widPix);
 				}
 				if(X & 0x08){
 					ctx.moveTo(ox, oy);
-					ctx.lineTo(ox+8, oy);
+					ctx.lineTo(ox+widPix, oy);
 				}
 				ctx.stroke();
 			}
