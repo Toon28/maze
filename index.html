@@ -116,17 +116,17 @@
             ball.y += ball.dy;
 
             if (ball.x - ball.radius < 2) ball.x = ball.radius+3;
-            if (ball.x + ball.radius > 32) ball.x = 32 - ball.radius-1;
+            if (ball.x + ball.radius > canvas.width) ball.x = 32 - ball.radius-1;
             if (ball.y - ball.radius < 2) ball.y = ball.radius+3;
-            if (ball.y + ball.radius > 32) ball.y = 32 - ball.radius-1;
+            if (ball.y + ball.radius > canvas.height) ball.y = 32 - ball.radius-1;
         }
         function drawBall() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-	    drawMaz()
+			drawMaz()
             ctx.beginPath();
             ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
             ctx.fillStyle = ball.color;
-	    ctx.fill();
+			ctx.fill();
             ctx.closePath();
         }
         function gameLoop() {
