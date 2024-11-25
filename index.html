@@ -22,6 +22,11 @@
     <canvas id="Canvas"></canvas>
 
     <script>
+		let fps = 30;
+		let now, delta;
+		let then = performance.now();
+		let interval = 1000 / fps;
+		
 		const W=10;
 		const H=16;
 	    const widPix=32;
@@ -162,9 +167,21 @@
                 alert("DeviceMotionEvent is not supported on this device.");
             }
 
-            gameLoop();
+            //gameLoop();
+			animate();
         }
         init();
+		function animate() {
+			now = performance.now();
+			delta = now - then;
+			if (delta > interval) {
+				then = now - (delta % interval); // ปรับให้ตรงรอบเวลา
+				updateBall();
+				drawBall();
+			}
+			
+            requestAnimationFrame(animate);
+		}
 /*		window.addEventListener("resize", () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
