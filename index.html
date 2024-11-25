@@ -19,15 +19,85 @@
     </style>
 </head>
 <body>
-    <canvas id="gameCanvas"></canvas>
+    <canvas id="Canvas"></canvas>
 
     <script>
-        const canvas = document.getElementById("gameCanvas");
+		const W = 32;
+		const H = 32;
+		
+		let VIS = [...Array.from({ length: H }, () => Array(W).fill(0).concat(1)),Array(W + 1).fill(1)];
+		let MAZ = Array.from({ length: H }, () => Array(W).fill(15));
+		function shuffleArray(array) {
+			for (let i = array.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				[array[i], array[j]] = [array[j], array[i]];
+			}
+		}
+		function walk(X,Y){
+			VIS[Y][X]=1;
+			let di = [[Y,X-1],[Y+1,X],[Y,X+1],[Y-1,X]];
+			shuffleArray(di);
+			for i in di{
+				const X1 = di[i][1];
+				const Y1 = di[i][0]
+				if(VIS[Y1][X] == 1)continue;
+				if(X1==X){
+					if(Y1<Y){//UP
+						MAZ[Y][X]-=8
+						MAZ[Y1][X]-=2
+					}
+					else{//DOWN
+						MAZ[Y][X]-=2
+						MAZ[Y1][X]-=8
+					}
+				}
+				if(Y1==Y){
+					if(X1<X){//left
+						MAZ[Y][X]-=1
+						MAZ[Y][X1]-=4
+					}
+					else{
+						MAZ[Y][X]-=4
+						MAZ[Y][X1]-=1
+					}
+				}
+				walk(X1,Y1)
+			}
+		}
+		walk(Math.floor(Math.random()*W),Math.floor(Math.random()*H))
+        const canvas = document.getElementById("Canvas");
         const ctx = canvas.getContext("2d");
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
+		ctx.strokeStyle = "blue";
+		ctx.lineWidth = 1;
+		
+		for j in MAZ{
+			for i in MAZ[j]{
+				const ox = 8*i;
+				const oy = 8*j;
+				const X=MAZ[j][i]
+				if(X & 0x01){
+					ctx.moveTo(ox, oy);
+					ctx.lineTo(ox, oy+8);
+				}
+				if(X & 0x02){
+					ctx.moveTo(ox, oy+8);
+					ctx.lineTo(ox+8, oy+8);
+				}
+				if(X & 0x04){
+					ctx.moveTo(ox+8, oy);
+					ctx.lineTo(ox+8, oy+8);
+				}
+				if(X & 0x08){
+					ctx.moveTo(ox, oy);
+					ctx.lineTo(ox+8, oy);
+				}
+				ctx.stroke();
+			}
+		}
+		
+/*
         const ball = {
             x: canvas.width / 2,
             y: canvas.height / 2,
@@ -37,7 +107,7 @@
             dy: 0,
             speed: 5.0
         };
-
+		
         function updateBall() {
             ball.x += ball.dx;
             ball.y += ball.dy;
@@ -84,11 +154,12 @@
         }
 
         init();
-
+*/
+/*
         window.addEventListener("resize", () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-        });
+        });*/
     </script>
 </body>
 </html>
