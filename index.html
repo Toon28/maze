@@ -114,9 +114,9 @@
             ball.x += ball.dx;
             ball.y += ball.dy;
 
-            if (ball.x - ball.radius < 3) ball.x = ball.radius+2;
+            if (ball.x - ball.radius < 2) ball.x = ball.radius+3;
             if (ball.x + ball.radius > 32) ball.x = 32 - ball.radius;
-            if (ball.y - ball.radius < 3) ball.y = ball.radius+2;
+            if (ball.y - ball.radius < 2) ball.y = ball.radius+3;
             if (ball.y + ball.radius > 32) ball.y = 32 - ball.radius;
         }
         function drawBall() {
