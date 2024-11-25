@@ -163,8 +163,8 @@
 					const tiltX = Math.atan2(accelY, Math.sqrt(accelX ** 2 + accelZ ** 2)) * (100 / Math.PI);
 					const tiltY = Math.atan2(accelX, Math.sqrt(accelY ** 2 + accelZ ** 2)) * (100 / Math.PI);
 
-                    ball.dx = ((-tiltY)/10) * ball.speed;
-                    ball.dy = ((tiltX)/10) * ball.speed;
+                    ball.dx = parseInt(((-tiltY)/10) * ball.speed);
+                    ball.dy = parseInt(((tiltX)/10) * ball.speed);
 					
                 });
             } else {
