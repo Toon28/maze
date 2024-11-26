@@ -127,10 +127,8 @@
     function updateBall() {
 		ball.x += ball.dx;
         ball.y += ball.dy;
-		ctx.clearRect(20, 550, 100, 100);
-		ctx.beginPath();
-		ctx.fillText(`${ball.dx}  ${ball.dy}`,30,532);
-		ctx.closePath();
+		//ctx.clearRect(20, 550, 100, 100);
+		
 		const Maz_ = findbox(ball.x,ball.y);
 		const XW = Math.floor(ball.x/widPix)*widPix
 		const YW = Math.floor(ball.y/widPix)*widPix
@@ -145,6 +143,9 @@
     }
     function drawBall() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.beginPath();
+		ctx.fillText(`${ball.dx}  ${ball.dy}  ${findbox(ball.x,ball.y)}`,30,532);
+		ctx.closePath();
 	    drawMaz();
         ctx.beginPath();
         ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
