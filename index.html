@@ -154,9 +154,8 @@
 		if((Math.floor((ball.x)/widPix)==targetX)&&(Math.floor((ball.y)/widPix)==targetY)){
 			run = false;
 			ctx.font = "32px Arial";
-			ctx.beginPath();
-			ctx.fillText(`complete`,50,200);
-			ctx.closePath();
+			ctx.fillText("complete",30,200);
+			ctx.font = "14px Arial";
 		}
     }
     function drawBall() {
