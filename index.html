@@ -122,7 +122,7 @@
 		ctx.closePath();
 	}
 	function findbox(x,y){
-		return MAZ[(y)%widPix][(x)%widPix]
+		return MAZ[parseInt((y)/widPix)][parseInt((x)/widPix)]
 	}
     function updateBall() {
 		ball.x += ball.dx;
