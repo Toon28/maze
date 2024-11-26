@@ -20,8 +20,7 @@
 </head>
 <body>
     <canvas id="Canvas"></canvas>
-
-    <script>
+	<script>
 		let fps = 30;
 		let now, delta;
 		let then = performance.now();
@@ -97,8 +96,8 @@
 		{
 			for(let i in MAZ[j])
 			{
-				const ox=(widPix*i)+1;
-				const oy=(widPix*j)+1;
+				const ox=(widPix*i);
+				const oy=(widPix*j);
 				const X=MAZ[j][i]
 				if(X & 0x01){
 					ctx.moveTo(ox,oy);
@@ -132,14 +131,14 @@
 		const Maz_ = findbox(ball.x,ball.y);
 		const XW = Math.floor(ball.x/widPix)*widPix
 		const YW = Math.floor(ball.y/widPix)*widPix
-		if(Maz_ & 0x01){if((ball.x - ball.radius) < (XW+2)){ball.x=ball.radius+3+XW;}}
-		if(Maz_ & 0x04){if((ball.x + ball.radius) > XW+widPix){ball.x=XW+widPix-(ball.radius+2);}}
-		if(Maz_ & 0x08){if((ball.y - ball.radius) < (YW+2)){ball.y=ball.radius+3+YW;}}
-		if(Maz_ & 0x02){if((ball.y + ball.radius) > YW+widPix){ball.x=YW+widPix-(ball.radius+2);}}
-        if (ball.x - ball.radius < 2) ball.x = ball.radius+3;
-        if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - (ball.radius+2);
-        if (ball.y - ball.radius < 2) ball.y = ball.radius+3;
-        if (ball.y + ball.radius > canvas.height) ball.y = canvas.height - (ball.radius+2);
+		if(Maz_ & 0x01){if((ball.x - ball.radius) < (XW)){ball.x=ball.radius+XW;}}
+		if(Maz_ & 0x04){if((ball.x + ball.radius) > XW+widPix){ball.x=XW+widPix-(ball.radius);}}
+		if(Maz_ & 0x08){if((ball.y - ball.radius) < (YW)){ball.y=ball.radius+YW;}}
+		if(Maz_ & 0x02){if((ball.y + ball.radius) > YW+widPix){ball.x=YW+widPix-(ball.radius);}}
+        if (ball.x - ball.radius < 0) ball.x = ball.radius;
+        if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - (ball.radius);
+        if (ball.y - ball.radius < 0) ball.y = ball.radius;
+        if (ball.y + ball.radius > canvas.height) ball.y = canvas.height - (ball.radius);
     }
     function drawBall() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
