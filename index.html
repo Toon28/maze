@@ -151,12 +151,7 @@
         if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - (ball.radius);
         if (ball.y - ball.radius < 0) ball.y = ball.radius;
         if (ball.y + ball.radius > canvas.height) ball.y = canvas.height - (ball.radius);
-		if((Math.floor((ball.x)/widPix)==targetX)&&(Math.floor((ball.y)/widPix)==targetY)){
-			run = false;
-			ctx.font = "32px Arial";
-			ctx.fillText("complete",30,200);
-			ctx.font = "14px Arial";
-		}
+	if((Math.floor((ball.x)/widPix)==targetX)&&(Math.floor((ball.y)/widPix)==targetY))run = false;
     }
     function drawBall() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -168,6 +163,10 @@
         ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
         ctx.fill();
         ctx.closePath();
+	if(!run){
+		ctx.font = "32px Arial";
+		ctx.fillText("complete",30,200);
+	}
     }
 
     function init() {
