@@ -25,10 +25,12 @@
 		let now, delta;
 		let then = performance.now();
 		let interval = 1000 / fps;
-		
+		let run = true;
 		const W=10;
 		const H=16;
-	    const widPix=32;
+		let targetX = W-1;
+		let targetY = H-1;
+		const widPix=32;
 		
 		const ball = {
             x: widPix / 2,
@@ -119,6 +121,12 @@
 		}
 		ctx.stroke();
 		ctx.closePath();
+		ctx.fillStyle = "red";
+		ctx.beginPath();
+        ctx.arc((targetX*widPix)+(widPix/2),(targetY*widPix)+(widPix/2), 8 , 0, Math.PI * 2);
+        ctx.fill();
+        ctx.closePath();
+		ctx.fillStyle = ball.color;
 	}
 	function findbox(x,y){
 		return MAZ[Math.floor((y)/widPix)][Math.floor((x)/widPix)]
@@ -143,6 +151,13 @@
         if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - (ball.radius);
         if (ball.y - ball.radius < 0) ball.y = ball.radius;
         if (ball.y + ball.radius > canvas.height) ball.y = canvas.height - (ball.radius);
+		if((Math.floor((x)/widPix)==targetX)&&(Math.floor((y)/widPix)==targetY)){
+			run = false;
+			ctx.font = "32px Arial";
+			ctx.beginPath();
+			ctx.fillText(`complete`,50,200);
+			ctx.closePath();
+		}
     }
     function drawBall() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -176,6 +191,8 @@
 			window.addEventListener("devicemotion", (event) => {
 				lastEvent = event;
 			});
+			targetX = Math.floor((Math.random() * W-2) + 2);
+			targetY = Math.floor((Math.random() * H-2) + 2);
         } else {
             alert("DeviceMotionEvent is not supported on this device.");
         }
@@ -190,7 +207,7 @@
 			updateBall();
 			drawBall();
 		}
-		requestAnimationFrame(animate);
+		if(run)requestAnimationFrame(animate);
 	}
 	init();
 /*		window.addEventListener("resize", () => {
