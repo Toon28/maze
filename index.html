@@ -88,7 +88,7 @@
         canvas.width = (widPix*W)+2;
         canvas.height = (widPix*H)+2+100;
 		ctx.strokeStyle = "blue";
-	    ctx.fillStyle = ball.color;
+	    	ctx.fillStyle = ball.color;
 		ctx.font = "14px Arial";
 		ctx.lineWidth = 1;
 	function drawMaz()
@@ -164,8 +164,9 @@
         ctx.fill();
         ctx.closePath();
 	if(!run){
+		ctx.fillStyle = "red";
 		ctx.font = "32px Arial";
-		ctx.fillText("complete",30,200);
+		ctx.fillText("complete",60,200);
 	}
     }
 
