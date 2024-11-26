@@ -85,13 +85,14 @@
         const canvas = document.getElementById("Canvas");
         const ctx = canvas.getContext("2d");
         canvas.width = (widPix*W)+2;
-        canvas.height = (widPix*H)+2+80;
+        canvas.height = (widPix*H)+2+100;
 		ctx.strokeStyle = "blue";
 	    ctx.fillStyle = ball.color;
 		ctx.font = "14px Arial";
 		ctx.lineWidth = 1;
 	function drawMaz()
 	{
+		ctx.beginPath();
 		for(let j in MAZ)
 		{
 			for(let i in MAZ[j])
@@ -115,77 +116,69 @@
 					ctx.moveTo(ox,oy);
 					ctx.lineTo(ox+widPix,oy);
 				}
-				ctx.stroke();
 			}
 		}
+		ctx.stroke();
+		ctx.closePath();
 	}
-		function findbox(x,y)
-		{
-			return MAZ[(y)%widPix][(x)%widPix]
-		}
-        function updateBall() {
-            ball.x += ball.dx;
-            ball.y += ball.dy;
-	    ctx.clearRect(20, 550, 100, 100);
-	    ctx.fillText(`${ball.dx}  ${ball.dx}`,30,550);
-			const Maz_ = findbox(ball.dx,ball.dy);
-			const XW = parseInt(ball.dx/widPix)*widPix
-			const YW = parseInt(ball.dy/widPix)*widPix
-			if(Maz_ & 0x01){if(ball.x - ball.radius < (XW+2)){ball.x=ball.radius+3+XW;}}
-			if(Maz_ & 0x02){if(ball.x + ball.radius > XW+widPix){ball.x=XW+widPix-(ball.radius+2);}}
-			if(Maz_ & 0x04){if(ball.y - ball.radius < (YW+2)){ball.y=ball.radius+3+YW;}}
-			if(Maz_ & 0x08){if(ball.y + ball.radius > YW+widPix){ball.x=YW+widPix-(ball.radius+2);}}
-            if (ball.x - ball.radius < 2) ball.x = ball.radius+3;
-            if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - (ball.radius+2);
-            if (ball.y - ball.radius < 2) ball.y = ball.radius+3;
-            if (ball.y + ball.radius > canvas.height) ball.y = canvas.height - (ball.radius+2);
-        }
-        function drawBall() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+	function findbox(x,y){
+		return MAZ[(y)%widPix][(x)%widPix]
+	}
+    function updateBall() {
+		ball.x += ball.dx;
+        ball.y += ball.dy;
+		ctx.clearRect(20, 550, 100, 100);
+		ctx.fillText(`${ball.dx}  ${ball.dy}`,30,532);
+		const Maz_ = findbox(ball.x,ball.y);
+		const XW = parseInt(ball.x/widPix)*widPix
+		const YW = parseInt(ball.y/widPix)*widPix
+		if(Maz_ & 0x01){if(ball.x - ball.radius < (XW+2)){ball.x=ball.radius+3+XW;}}
+		if(Maz_ & 0x02){if(ball.x + ball.radius > XW+widPix){ball.x=XW+widPix-(ball.radius+2);}}
+		if(Maz_ & 0x04){if(ball.y - ball.radius < (YW+2)){ball.y=ball.radius+3+YW;}}
+		if(Maz_ & 0x08){if(ball.y + ball.radius > YW+widPix){ball.x=YW+widPix-(ball.radius+2);}}
+        if (ball.x - ball.radius < 2) ball.x = ball.radius+3;
+        if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - (ball.radius+2);
+        if (ball.y - ball.radius < 2) ball.y = ball.radius+3;
+        if (ball.y + ball.radius > canvas.height) ball.y = canvas.height - (ball.radius+2);
+    }
+    function drawBall() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 	    drawMaz();
-            ctx.beginPath();
-            ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.closePath();
-        }
-        function gameLoop() {
-            updateBall();
-            drawBall();
-            requestAnimationFrame(gameLoop);
-        }
-        function init() {
-            if (window.DeviceMotionEvent) {
-                window.addEventListener("devicemotion", (event) => {
-                    const accel = event.accelerationIncludingGravity;
-                    const accelX = accel.x || 0;
-                    const accelY = accel.y || 0;
-					const accelZ = accel.z || 0;
-					const tiltX = Math.atan2(accelY, Math.sqrt(accelX ** 2 + accelZ ** 2)) * (100 / Math.PI);
-					const tiltY = Math.atan2(accelX, Math.sqrt(accelY ** 2 + accelZ ** 2)) * (100 / Math.PI);
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.closePath();
+    }
 
-                    ball.dx = parseInt(((-tiltY)/10) * ball.speed);
-                    ball.dy = parseInt(((tiltX)/10) * ball.speed);
-					
-                });
-            } else {
-                alert("DeviceMotionEvent is not supported on this device.");
-            }
-
-            //gameLoop();
-			animate();
+    function init() {
+        if (window.DeviceMotionEvent) {
+            window.addEventListener("devicemotion", (event) => {
+				const accel = event.accelerationIncludingGravity;
+				const accelX = accel.x || 0;
+				const accelY = accel.y || 0;
+				const accelZ = accel.z || 0;
+				const tiltX = Math.atan2(accelY, Math.sqrt(accelX ** 2 + accelZ ** 2)) * (100 / Math.PI);
+				const tiltY = Math.atan2(accelX, Math.sqrt(accelY ** 2 + accelZ ** 2)) * (100 / Math.PI);
+				ball.dx = ((-tiltY)/10) * ball.speed;
+				ball.dy = ((tiltX)/10) * ball.speed;
+			});
+        } else {
+            alert("DeviceMotionEvent is not supported on this device.");
         }
-        init();
-		function animate() {
-			now = performance.now();
-			delta = now - then;
-			if (delta > interval) {
-				then = now - (delta % interval); // ปรับให้ตรงรอบเวลา
-				updateBall();
-				drawBall();
-			}
-			
-            requestAnimationFrame(animate);
+		animate();
+    }
+        
+	function animate() {
+		now = performance.now();
+		delta = now - then;
+		if (delta > interval) {
+			then = now - (delta % interval); // ปรับให้ตรงรอบเวลา
+			updateBall();
+			drawBall();
 		}
+		requestAnimationFrame(animate);
+	}
+	init();
 /*		window.addEventListener("resize", () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
