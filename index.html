@@ -125,8 +125,8 @@
 		return MAZ[Math.floor((y)/widPix)][Math.floor((x)/widPix)]
 	}
     function updateBall() {
-		ball.x += ball.dx;
-        ball.y += ball.dy;
+		Math.floor(ball.x += ball.dx);
+        	Math.floor(ball.y += ball.dy);
 		//ctx.clearRect(20, 550, 100, 100);
 		
 		const Maz_ = findbox(ball.x,ball.y);
@@ -144,7 +144,7 @@
     function drawBall() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.beginPath();
-		ctx.fillText(`${ball.dx}  ${ball.dy}  ${findbox(ball.x,ball.y)}`,30,532);
+		ctx.fillText(`${ball.x}  ${ball.y}  ${findbox(ball.x,ball.y)}`,30,532);
 		ctx.closePath();
 	    drawMaz();
         ctx.beginPath();
