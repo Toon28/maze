@@ -138,7 +138,7 @@
 		if(Maz_ & 0x01){if((ball.x - ball.radius) < (XW)){ball.x=ball.radius+XW;}}
 		if(Maz_ & 0x04){if((ball.x + ball.radius) >= XW+widPix){ball.x=XW+widPix-(ball.radius);}}
 		if(Maz_ & 0x08){if((ball.y - ball.radius) < (YW)){ball.y=ball.radius+YW;}}
-		if(Maz_ & 0x02){if((ball.y + ball.radius) > YW+widPix){ball.x=YW+widPix-(ball.radius);}}
+		if(Maz_ & 0x02){if((ball.y + ball.radius) >= YW+widPix){ball.x=YW+widPix-(ball.radius);}}
         if (ball.x - ball.radius < 0) ball.x = ball.radius;
         if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - (ball.radius);
         if (ball.y - ball.radius < 0) ball.y = ball.radius;
