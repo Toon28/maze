@@ -123,6 +123,8 @@
 	function findbox(x,y){
 		return MAZ[Math.floor((y)/widPix)][Math.floor((x)/widPix)]
 	}
+	let testX = 0
+	let testY = 0
     function updateBall() {
 		ball.x = Math.floor(ball.x + ball.dx);
         ball.y = Math.floor(ball.y + ball.dy);
@@ -131,8 +133,10 @@
 		const Maz_ = findbox(ball.x,ball.y);
 		const XW = Math.floor(ball.x/widPix)*widPix
 		const YW = Math.floor(ball.y/widPix)*widPix
+		testX=XW
+		testY=YW
 		if(Maz_ & 0x01){if((ball.x - ball.radius) < (XW)){ball.x=ball.radius+XW;}}
-		if(Maz_ & 0x04){if((ball.x + ball.radius) > XW+widPix){ball.x=XW+widPix-(ball.radius);}}
+		if(Maz_ & 0x04){if((ball.x + ball.radius) >= XW+widPix){ball.x=XW+widPix-(ball.radius);}}
 		if(Maz_ & 0x08){if((ball.y - ball.radius) < (YW)){ball.y=ball.radius+YW;}}
 		if(Maz_ & 0x02){if((ball.y + ball.radius) > YW+widPix){ball.x=YW+widPix-(ball.radius);}}
         if (ball.x - ball.radius < 0) ball.x = ball.radius;
@@ -143,7 +147,7 @@
     function drawBall() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.beginPath();
-		ctx.fillText(`${ball.x}  ${ball.y}  ${findbox(ball.x,ball.y)}`,30,532);
+		ctx.fillText(`${ball.x}  ${ball.y}  ${testX}  ${testY}  ${findbox(ball.x,ball.y)}`,30,532);
 		ctx.closePath();
 	    drawMaz();
         ctx.beginPath();
