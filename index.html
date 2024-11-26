@@ -151,7 +151,7 @@
         if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - (ball.radius);
         if (ball.y - ball.radius < 0) ball.y = ball.radius;
         if (ball.y + ball.radius > canvas.height) ball.y = canvas.height - (ball.radius);
-		if((Math.floor((x)/widPix)==targetX)&&(Math.floor((y)/widPix)==targetY)){
+		if((Math.floor((ball.x)/widPix)==targetX)&&(Math.floor((ball.y)/widPix)==targetY)){
 			run = false;
 			ctx.font = "32px Arial";
 			ctx.beginPath();
