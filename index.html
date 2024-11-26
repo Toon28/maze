@@ -169,8 +169,8 @@
 				const tiltY = Math.atan2(accelX, Math.sqrt(accelY ** 2 + accelZ ** 2)) * (100 / Math.PI);
 				ball.dx = ((-tiltY)/10) * ball.speed;
 				ball.dy = ((tiltX)/10) * ball.speed;
-		    		ball.dx =(ball.dx>5)?5:(ball.dx<(-5))?(-5):ball.dx;
-				ball.dy =(ball.dy>5)?5:(ball.dy<(-5))?(-5):ball.dy;
+		    		ball.dx =(ball.dx>4)?4:(ball.dx<(-4))?(-4):ball.dx;
+				ball.dy =(ball.dy>4)?4:(ball.dy<(-4))?(-4):ball.dy;
 			},interval);
 			let lastEvent = null;
 			window.addEventListener("devicemotion", (event) => {
