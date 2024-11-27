@@ -31,7 +31,7 @@
 		let targetX = W-1;
 		let targetY = H-1;
 		const widPix=32;
-		
+		let count = 0;
 		const ball = {
             x: widPix / 2,
             y: widPix / 2,
@@ -85,11 +85,11 @@
 		walk(Math.floor(Math.random()*W),Math.floor(Math.random()*H))
         const canvas = document.getElementById("Canvas");
         const ctx = canvas.getContext("2d");
-        canvas.width = (widPix*W)+2;
-        canvas.height = (widPix*H)+2+100;
+        canvas.width = (widPix*W);
+        canvas.height = (widPix*H)+140;
 		ctx.strokeStyle = "blue";
 	    	ctx.fillStyle = ball.color;
-		ctx.font = "14px Arial";
+		ctx.font = "32px Arial";
 		ctx.lineWidth = 1;
 	function drawMaz()
 	{
@@ -151,23 +151,30 @@
         if (ball.x + ball.radius > canvas.width) ball.x = canvas.width - (ball.radius);
         if (ball.y - ball.radius < 0) ball.y = ball.radius;
         if (ball.y + ball.radius > canvas.height) ball.y = canvas.height - (ball.radius);
-	if((Math.floor((ball.x)/widPix)==targetX)&&(Math.floor((ball.y)/widPix)==targetY))run = false;
+		if((Math.floor((ball.x)/widPix)==targetX)&&(Math.floor((ball.y)/widPix)==targetY))
+		{
+			targetX = Math.floor(Math.random() * W);
+			targetY = Math.floor(Math.random() * H);
+			count+=1;
+			//run = false;
+		}
     }
     function drawBall() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.beginPath();
-		ctx.fillText(`${ball.x}  ${ball.y}  ${testX}  ${testY}  ${findbox(ball.x,ball.y)}`,30,532);
+		//ctx.fillText(`${ball.x}  ${ball.y}  ${testX}  ${testY}  ${findbox(ball.x,ball.y)}`,30,560);
+		ctx.fillText(`${count}`,30,600);
 		ctx.closePath();
 	    drawMaz();
         ctx.beginPath();
         ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
         ctx.fill();
         ctx.closePath();
-	if(!run){
+/*	if(!run){
 		ctx.fillStyle = "red";
 		ctx.font = "32px Arial";
 		ctx.fillText("completed",80,200);
-	}
+	}*/
     }
 
     function init() {
