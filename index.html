@@ -189,7 +189,7 @@
 				const accelZ = accel.z || 0;
 				const tiltX = Math.atan2(accelY, Math.sqrt(accelX ** 2 + accelZ ** 2)) * (100 / Math.PI);
 				const tiltY = Math.atan2(accelX, Math.sqrt(accelY ** 2 + accelZ ** 2)) * (100 / Math.PI);
-		    		Tx=(-tiltY);
+		    		Tx=(tiltX);
 				ball.dx = ((-tiltY)/10) * ball.speed;
 				ball.dy = ((tiltX)/10) * ball.speed;
 		    		ball.dx =(ball.dx>4)?4:(ball.dx<(-4))?(-4):ball.dx;
