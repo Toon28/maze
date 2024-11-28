@@ -25,14 +25,14 @@
 		let now, delta;
 		let then = performance.now();
 		let interval = 1000 / fps;
-		let run = true;
+		//let run = true;
 		const W=10;
 		const H=16;
 		let Tx = 0;
 		let targetX = W-1;
 		let targetY = H-1;
 		const widPix=32;
-		let count = 0;
+		let Score = 0;
 		const ball = {
             x: widPix / 2,
             y: widPix / 2,
@@ -156,7 +156,8 @@
 		{
 			targetX = Math.floor(Math.random() * W);
 			targetY = Math.floor(Math.random() * H);
-			count+=1;
+			Score+=1;
+			localStorage.setItem('score', Score);
 			//run = false;
 		}
     }
@@ -164,7 +165,7 @@
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 		ctx.beginPath();
 		//ctx.fillText(`${ball.x}  ${ball.y}  ${testX}  ${testY}  ${findbox(ball.x,ball.y)}`,30,560);
-		ctx.fillText(`${count}`,30,600);
+		ctx.fillText(`${Score}`,30,600);
 		ctx.closePath();
 	    drawMaz();
         ctx.beginPath();
@@ -180,6 +181,8 @@
 
     function init() {
         if (window.DeviceMotionEvent) {
+			const savedScore = localStorage.getItem('score');
+			if(savedScore)Score=parseInt(savedScore, 10);
             setInterval(() => {
 				if (!lastEvent) return;
 				
@@ -215,7 +218,7 @@
 			updateBall();
 			drawBall();
 		}
-		if(run)requestAnimationFrame(animate);
+		requestAnimationFrame(animate);
 	}
 	init();
 /*		window.addEventListener("resize", () => {
